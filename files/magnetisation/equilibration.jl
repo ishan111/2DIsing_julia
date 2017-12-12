@@ -1,4 +1,4 @@
-@everywhere function Equilibration(n_grid,T,J,L)
+function Equilibration(n_grid::Int64,T::Float64,J::Float64,L::Int64)
 
 #creating random arrangement
 grid=randn(n_grid,n_grid)
@@ -16,7 +16,7 @@ numIters = (2^9)*length(grid)
 for iter in 1:numIters
     row = rand(1:n_grid)
     col = rand(1:n_grid)
-    
+
     #nearest neighbors
     if col==1
         left=n_grid
@@ -40,17 +40,15 @@ for iter in 1:numIters
     end
 
     neighbors=grid[above,col]+grid[row,left]+grid[row,right]+grid[below,col]
-    
+
     #Energy change after spin flip
     dE = 2*(J*grid[row,col]*neighbors)
-    
+
     #Spin flip condition
     if dE <= 0
         grid[row,col] = -grid[row,col]
     else
-        prob=exp(-dE/T)
-        r=rand(1)
-        if  r[1,1] <= prob
+        if  rand() <= exp(-dE/T)
             grid[row,col] = -grid[row,col]
         end
     end
