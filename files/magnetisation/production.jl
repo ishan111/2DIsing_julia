@@ -38,14 +38,14 @@ for iter in 1:L
     if dE <= 0
         grid[row,col] = -grid[row,col]
     else
-        if  rand() <= exp(-dE/T)
+        if rand() <= exp(-dE/T)
             grid[row,col] = -grid[row,col]
         end
     end
 
     #Calculating Properties
-    M+=mean(grid)
-    M2+=mean(grid)^2
+    M+=sum(grid)/length(grid)
+    M2+=(sum(grid)/length(grid))^2
     #sumofneighbors=circshift(grid,[0 1])+circshift(grid,[0 -1])+circshift(grid,[1 0])+circshift(grid,[-1 0])
     #Em = - J*grid.*sumofneighbors
     #E=0.5*sum(Em)

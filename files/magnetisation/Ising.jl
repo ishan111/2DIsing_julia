@@ -13,8 +13,8 @@ for Pr in 1:P
     end
 end
 
-#Mp_avg=mean(Mp,1);
-#x_avg=mean(x,1);
+Mp_avg=mean(Mp,1);
+x_avg=mean(x,1);
 
 #using Plots
 #plt1 = Plots.scatter(Ts,Mp_avg,color="red",legend=false,xaxis="Temp",yaxis="<M>/spin");
@@ -23,5 +23,5 @@ end
 #display(plt2)
 
     print("FINISHED!")
-    return mean(Mp,1), mean(x,1), Ts
+    return Mp_avg, x_avg, Ts
 end
