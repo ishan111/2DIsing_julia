@@ -1,0 +1,36 @@
+
+
+*******************************************************************************
+Mon Jan 15 01:34:50 2018
+
+
+FIT:    data read from 'r_corrfunc_err.dat'
+        format = z
+        #datapoints = 29
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = m*x+c
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   m             c            
+   0 5.6662868082e+02   0.00e+00  1.97e+00    1.000000e+00   1.000000e+00
+   4 3.4174542840e-02  -1.04e-05  1.97e-04   -1.773554e-01  -4.171075e-01
+
+After 4 iterations the fit converged.
+final sum of squares of residuals : 0.0341745
+rel. change during last iteration : -1.04267e-10
+
+degrees of freedom    (FIT_NDF)                        : 27
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.035577
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.00126572
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+m               = -0.177355        +/- 0.007933     (4.473%)
+c               = -0.417108        +/- 0.02058      (4.934%)
+
+correlation matrix of the fit parameters:
+                m      c      
+m               1.000 
+c              -0.947  1.000 
