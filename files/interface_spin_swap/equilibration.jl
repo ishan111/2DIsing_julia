@@ -1,12 +1,11 @@
 using StatsBase
 using JLD
-function Equilibration(n_grid::Int64,T::Float64,J::Float64)
+function Equilibration(n_grid::Int64,T::Float64,J::Float64,E_steps)
 
 
 
 #creating random arrangement
-if isdefined(Symbol("grid$n_grid")) == false
-    print("yes")
+if isdefined(Symbol("grid$n_grid")) == false 
     grid=rand(n_grid,n_grid)
     for i in 1:n_grid^2
         if i%2==0
@@ -110,7 +109,8 @@ while true
             end
         end
         steps+= 1
-        if steps%50000000==0
+        if steps%E_steps==0
+            break
             for i in 1:n_grid
                 for j in 1:n_grid
                     above = mod(i - 1 - 1, size(grid,1)) + 1;
@@ -123,7 +123,8 @@ while true
                 end
             end
             append!(Ene,E)
-            break  
+            
+            
             if length(Ene)>2 && Ene[length(Ene)] == Ene[length(Ene)-1]
                 break
             end
@@ -131,11 +132,7 @@ while true
     end
 end
 
-if isdefined(Symbol("grid$n_grid")) == false
-    file=jldopen("grid.jld","r+")
-    write(file,"grid$n_grid",grid)
-    close(file)
-end
+
 # load("grid.jld")["grid"]
 print("Finished")
 
