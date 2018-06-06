@@ -1,11 +1,12 @@
 #Production
-@everywhere function Production(n_grid,T,J,L,grid)
-Mmean=zeros(1,L)
-Emean=zeros(1,L)
+function Production(n_grid::Int64,T::Float64,J::Float64,L::Int64,grid,M::Float64=0.0,M2::Float64=0.0)
+#M=0.0
+#M2=0.0
+
 for iter in 1:L
     row = rand(1:n_grid)
     col = rand(1:n_grid)
-    
+
     #nearest neighbors
     if col==1
         left=n_grid
@@ -29,33 +30,31 @@ for iter in 1:L
     end
 
     neighbors=grid[above,col]+grid[row,left]+grid[row,right]+grid[below,col]
-    
+
     #Energy change after spin flip
     dE = 2*(J*grid[row,col]*neighbors)
-    
+
     #Spin flip condition
     if dE <= 0
         grid[row,col] = -grid[row,col]
     else
-        prob=exp(-dE/T)
-        r=rand(1)
-        if  r[1,1] <= prob
+        if rand() <= exp(-dE/T)
             grid[row,col] = -grid[row,col]
         end
     end
-    
+
     #Calculating Properties
-    Mmean[1,iter]=mean(grid)
-    
+    M+=sum(grid)/length(grid)
+    M2+=(sum(grid)/length(grid))^2
     #sumofneighbors=circshift(grid,[0 1])+circshift(grid,[0 -1])+circshift(grid,[1 0])+circshift(grid,[-1 0])
     #Em = - J*grid.*sumofneighbors
     #E=0.5*sum(Em)
     #Emean[1,iter]=E/length(grid)
 end
 gridpr=grid;
-Ms=mean(Mmean);
+Ms=M/L;
 #Es=mean(Emean)
-xs=(mean(Mmean.^2)-mean(Mmean)^2)/T;
+xs=(M2/L-Ms^2)/T;
 #Cs=(mean(Emean.^2)-mean(Emean)^2)/T^2
 return gridpr, Ms, xs
-end																				
+end
